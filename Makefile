@@ -4,13 +4,13 @@ help:
 
 .PHONY: build
 build: ## Build go app
-	go build -o bin/api
+	@go build -o bin/api
 
 
 .PHONY: run
-run: ## Run go app
-	./bin/api
+run: build ## Build and run go app
+	@./bin/api
 
 .PHONY: test
 test: ## Test go app
-	go test -v ./...
+	@go test -v ./...
