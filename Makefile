@@ -5,3 +5,12 @@ help:
 .PHONY: build
 build: ## Build go app
 	go build -o bin/api
+
+
+.PHONY: run
+run: ## Run go app
+	./bin/api
+
+.PHONY: test
+test: ## Test go app
+	go test -v ./...
