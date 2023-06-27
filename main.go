@@ -22,6 +22,21 @@ func main() {
 		log.Fatal(err)
 	}
 
+	ctx := context.Background()
+	collection := client.Database(dbName).Collection(userColl)
+
+	user := types.User{
+		FirstName: "Ali",
+		LastName:  "Kiani",
+	}
+
+	res, err := collection.InsertOne(ctx, user)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(res)
+
 	listenPort := flag.String("port", ":5000", "The port address for api server")
 	flag.Parse()
 
