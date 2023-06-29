@@ -1,2 +1,2 @@
-## mahfel
-- A simple froum with Golang
+## Mahfel
+- A simple forum with Golang
