@@ -28,6 +28,7 @@ func main() {
 	user := types.User{
 		FirstName: "Ali",
 		LastName:  "Kiani",
+		Email:     "codewithkiani@gmail.com",
 	}
 
 	res, err := collection.InsertOne(ctx, user)
