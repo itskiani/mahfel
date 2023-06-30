@@ -13,7 +13,7 @@ import (
 )
 
 const dbUri = "mongodb://localhost:27017"
-const dbName = "froum"
+const dbName = "forum"
 const userColl = "users"
 
 func main() {
