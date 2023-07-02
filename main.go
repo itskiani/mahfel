@@ -42,11 +42,7 @@ func main() {
 	flag.Parse()
 
 	app := fiber.New()
-	app.Get("/", handleHome)
+	apiV1 := app.Group("/api/v1")
 
 	app.Listen(*listenPort)
-}
-
-func handleHome(c *fiber.Ctx) error {
-	return c.JSON(map[string]string{"msg": "Its Working"})
 }
