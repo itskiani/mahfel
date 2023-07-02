@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 
+	api "github.com/ItsKiani/mahfel/api/routes"
 	"github.com/ItsKiani/mahfel/types"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -42,7 +43,10 @@ func main() {
 	flag.Parse()
 
 	app := fiber.New()
+
+	/** Routes */
 	apiV1 := app.Group("/api/v1")
+	apiV1.Get("/user", api.HandleGetUsers)
 
 	app.Listen(*listenPort)
 }
