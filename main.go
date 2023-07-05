@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 
 	api "github.com/ItsKiani/mahfel/api/routes"
 	"github.com/ItsKiani/mahfel/types"
@@ -14,8 +15,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const dbUri = "mongodb://localhost:27017"
-const dbName = "forum"
 const userColl = "users"
 
 func main() {
@@ -23,13 +22,13 @@ func main() {
 		log.Println("No .env file found")
 	}
 
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(dbUri))
+	db, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(os.Getenv("DB_URL")))
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	ctx := context.Background()
-	collection := client.Database(dbName).Collection(userColl)
+	collection := db.Database(os.Getenv("DB_NAME")).Collection(userColl)
 
 	user := types.User{
 		FirstName: "Ali",
