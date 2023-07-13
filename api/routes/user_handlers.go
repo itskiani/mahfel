@@ -6,14 +6,18 @@ import (
 )
 
 type UserHandler struct {
-	userStorage db.MongoUserStorage
+	userStorage db.UserStorage
 }
 
-func HandleGetUser(c *fiber.Ctx) error {
+func (h *UserHandler) HandleGetUser(c *fiber.Ctx) error {
 	id := c.Params("id")
-	return c.JSON(id)
+	user, err := h.userStorage.GetUserByID(id)
+	if err != nil {
+		return err
+	}
+	return c.JSON(user)
 }
 
-func HandleGetUsers(c *fiber.Ctx) error {
+func (h *UserHandler) HandleGetUsers(c *fiber.Ctx) error {
 	return c.JSON("Kiani")
 }
