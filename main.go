@@ -8,6 +8,7 @@ import (
 	"os"
 
 	api "github.com/ItsKiani/mahfel/api/routes"
+	"github.com/ItsKiani/mahfel/db"
 	"github.com/ItsKiani/mahfel/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
@@ -18,39 +19,24 @@ import (
 const userColl = "users"
 
 func main() {
+	listenPort := flag.String("port", ":5000", "The port address for api server")
+	flag.Parse()
+
 	if err := godotenv.Load(); err != nil {
 		log.Println("No .env file found")
 	}
 
-	db, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(os.Getenv("DB_URL")))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(os.Getenv("DB_URL")))
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	ctx := context.Background()
-	collection := db.Database(os.Getenv("DB_NAME")).Collection(userColl)
-
-	user := types.User{
-		FirstName: "Ali",
-		LastName:  "Kiani",
-		Email:     "codewithkiani@gmail.com",
-	}
-
-	res, err := collection.InsertOne(ctx, user)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(res)
-
-	listenPort := flag.String("port", ":5000", "The port address for api server")
-	flag.Parse()
+	userHandler := api.NewUserHandler(db.NewMongoUserStorage(client))
 
 	app := fiber.New()
 
 	/** Routes */
 	apiV1 := app.Group("/api/v1")
-	apiV1.Get("/user", api.HandleGetUsers)
+	apiV1.Get("/user", userHandler.HandleGetUsers)
 
 	app.Listen(*listenPort)
 }
