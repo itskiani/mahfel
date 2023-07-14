@@ -9,7 +9,9 @@ type UserStorage interface {
 	GetUserByID(string) (*types.User, error)
 }
 
-type MongoUserStorage struct{}
+type MongoUserStorage struct {
+	client *mongo.Client
+}
 
 func NewMongoUserStorage(c *mongo.Client) *MongoUserStorage {
 	return &MongoUserStorage{
