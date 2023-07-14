@@ -9,6 +9,12 @@ type UserHandler struct {
 	userStorage db.UserStorage
 }
 
+func NewUserHandler(userStorage db.UserStorage) *UserHandler {
+	return &UserHandler{
+		userStorage: userStorage,
+	}
+}
+
 func (h *UserHandler) HandleGetUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 	user, err := h.userStorage.GetUserByID(id)
