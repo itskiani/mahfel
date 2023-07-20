@@ -37,6 +37,7 @@ func main() {
 	/** Routes */
 	apiV1 := app.Group("/api/v1")
 	apiV1.Get("/user", userHandler.HandleGetUsers)
+	apiV1.Get("/user/:id", userHandler.HandleGetUser)
 
 	app.Listen(*listenPort)
 }
