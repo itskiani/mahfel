@@ -13,7 +13,7 @@ type MongoUserStorage struct {
 	client *mongo.Client
 }
 
-func NewMongoUserStorage(c *mongo.Client) *MongoUserStorage {
+func NewMongoUserStorage(client *mongo.Client) *MongoUserStorage {
 	return &MongoUserStorage{
 		client: client,
 	}
