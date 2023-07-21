@@ -11,6 +11,8 @@ type UserStorage interface {
 
 type MongoUserStorage struct {
 	client *mongo.Client
+	dbname string
+	coll   *mongo.Collection
 }
 
 func NewMongoUserStorage(client *mongo.Client) *MongoUserStorage {

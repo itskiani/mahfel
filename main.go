@@ -3,13 +3,11 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
 	"os"
 
 	api "github.com/ItsKiani/mahfel/api/routes"
 	"github.com/ItsKiani/mahfel/db"
-	"github.com/ItsKiani/mahfel/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
